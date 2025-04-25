@@ -1,0 +1,6 @@
+@AkBrandMobile_HostAddress = http://localhost:5264
+
+GET {{AkBrandMobile_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
