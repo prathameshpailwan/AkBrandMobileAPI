@@ -2,8 +2,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy everything to container's working directory
+# Copy everything to container
 COPY . .
+
+# Set working directory to project folder
+WORKDIR /app/AKBrandMobile
 
 # Restore and publish
 RUN dotnet restore "AKBrandMobile.csproj"
