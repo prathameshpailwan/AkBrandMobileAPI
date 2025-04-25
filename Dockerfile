@@ -1,22 +1,20 @@
-# Use SDK image to build app
+# Use SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /app
 
-# Copy everything into the container
+# Copy everything to container's working directory
 COPY . .
 
-# Restore dependencies using the correct path to the project file
+# Restore and publish
 RUN dotnet restore "AKBrandMobile.csproj"
-
-# Build and publish the app
-RUN dotnet publish "AKBrandMobile.csproj" -c Release -o /app/out
+RUN dotnet publish "AKBrandMobile.csproj" -c Release -o /out --no-restore
 
 # Use runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=build /out .
 
-EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "AKBrandMobile.dll"]
