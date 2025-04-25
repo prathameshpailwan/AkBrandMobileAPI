@@ -1,24 +1,25 @@
 # Use SDK image to build app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copy everything and restore dependencies
+# Copy everything and restore
 COPY . ./
-RUN dotnet restore "AKBrandMobile.csproj"
+WORKDIR /src/AKBrandMobile
+RUN dotnet restore
 
 # Publish the application
-RUN dotnet publish "AKBrandMobile.csproj" -c Release -o /app/out
+RUN dotnet publish -c Release -o /app/out
 
 # Use runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Copy published files from build stage
+# Copy published output
 COPY --from=build /app/out .
 
 # Set environment and expose port
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
-# Run the app
+# Start the app
 ENTRYPOINT ["dotnet", "AKBrandMobile.dll"]
