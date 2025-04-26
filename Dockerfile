@@ -5,9 +5,9 @@ WORKDIR /app
 # Copy everything to container
 COPY . . 
 
-# Restore and publish
-RUN dotnet restore "AKBrandMobile.csproj"
-RUN dotnet publish "AKBrandMobile.csproj" -c Release -o /out --no-restore
+# Restore and publish using correct .csproj file name
+RUN dotnet restore "AkBrandMobile.csproj"
+RUN dotnet publish "AkBrandMobile.csproj" -c Release -o /out --no-restore
 
 # Use runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
@@ -17,5 +17,5 @@ COPY --from=build /out .
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
-
-ENTRYPOINT ["dotnet", "AKBrandMobile.dll"]
+# Correct .dll file name
+ENTRYPOINT ["dotnet", "AkBrandMobile.dll"]
