@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // ✅ Allow only Angular app (secure)
+        policy.WithOrigins("http://localhost:4200", "https://brand-mobile-new.vercel.app") // ✅ Allow both local and Vercel app
               .AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials(); // ✅ Allow authentication cookies/tokens
