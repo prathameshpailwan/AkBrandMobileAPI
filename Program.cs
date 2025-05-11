@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:4200",
             "https://brand-mobile-new.vercel.app",
             "https://brand-mobile-new-prathamesh-pailwans-projects.vercel.app", // Vercel app
-            "https://brandmobileapi-eqcqb7c4dkf6dka8.canadaeast-01.azurewebsites.net") // Azure UI URL
+            "https://brandmobileui-bngnhqeja9czhjc2.canadacentral-01.azurewebsites.net") // Azure UI URL
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials(); // Allow authentication cookies/tokens
